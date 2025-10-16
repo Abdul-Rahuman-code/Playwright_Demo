@@ -1,0 +1,36 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+  await page.getByRole('textbox', { name: 'Username' }).fill('Admin');
+  await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page).toHaveURL('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index');
+  await page.getByRole('heading', { name: 'Dashboard' }).click();
+  await page.getByRole('link', { name: 'Admin' }).click();
+  await page.getByRole('heading', { name: 'System Users' }).click();
+  await page.getByRole('button', { name: ' Add' }).click();
+  await page.getByRole('heading', { name: 'Add User' }).click();
+  await page.locator('.oxd-icon.bi-caret-down-fill.oxd-select-text--arrow').first().click();
+  await page.getByRole('option', { name: 'Admin' }).click();
+  await page.getByRole('textbox', { name: 'Type for hints...' }).click();
+  await page.getByRole('textbox', { name: 'Type for hints...' }).fill('b');
+  await page.getByText('Bharath MJ').click();
+  await page.locator('div:nth-child(3) > .oxd-input-group > div:nth-child(2) > .oxd-select-wrapper > .oxd-select-text > .oxd-select-text--after > .oxd-icon').click();
+  await page.getByRole('option', { name: 'Enabled' }).click();
+  const ExpUserName = 'David' + Math.random() * 100000;
+  await page.getByRole('textbox').nth(2).fill(ExpUserName);
+  await page.getByRole('textbox').nth(3).click();
+  await page.getByRole('textbox').nth(3).fill('admin123');
+  await page.getByRole('textbox').nth(4).click();
+  await page.getByRole('textbox').nth(4).fill('admin123');
+  await page.getByRole('button', { name: 'Save' }).click();
+  await page.getByText('Success', { exact: true }).click();
+  expect(page.locator("//div[[normalize-space()= " + ExpUserName +  "]")).toHaveText(ExpUserName);
+  await page.locator('div:nth-child(7) > .oxd-table-row > div:nth-child(6) > .oxd-table-cell-actions > button').first().click();
+//   await page.locator("//[normalize-space()='" + ExpUserName + "']//preceding-sibling::td/input").click();
+  await page.getByRole('button', { name: ' Yes, Delete' }).click();
+  await page.getByRole('listitem').filter({ hasText: 'Speedy Gonzales' }).locator('i').click();
+  await page.getByRole('menuitem', { name: 'Logout' }).click();
+  await page.getByRole('button', { name: 'Login' }).click();
+});

@@ -1,0 +1,14 @@
+[
+    {
+      "test_case": "TC1",
+      "uname": "Admin", 
+      "password": "admin",
+      "exp_res": "Dashboard"
+    },
+    { 
+        "test_case": "TC2",
+        "uname": "Tester1", 
+        "password": "test",
+        "exp_res": "Invalid Login or Password."
+      }
+    ]
